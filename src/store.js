@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     count: 0,
+    message: 'initial message',
     list: [
       { id: 1, name: 'apple', price: 100 },
       { id: 2, name: 'banana', price: 200 },
@@ -13,10 +14,16 @@ const store = new Vuex.Store({
     ]
   },
   actions: {
+    doUpdate({commit},message){
+      commit('setMessage', {message})
+    }
   },
   mutations: {
     increment(state) {
       state.count++
+    },
+    setMessage(state, payload){
+      state.message = payload.message
     }
   },
   getters: {
@@ -33,7 +40,8 @@ const store = new Vuex.Store({
     },
     name(state, getters) {
       return id => getters.item(id).name
-    }
+    },
+    message(state){ return state.message}
   }
 })
 export default store
